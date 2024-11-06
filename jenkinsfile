@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:22.9.0'  // Use the Node.js Docker image with version 22.9.0
+            args '-p 80:80'      // Port mapping if needed
+        }
+    }
 
     environment {
         DOCKER_IMAGE = 'test-app'
