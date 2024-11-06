@@ -1,11 +1,6 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:22.9.0'  // Use the Node.js Docker image with version 22.9.0
-            args '-p 80:80'      // Port mapping if needed
-        }
-    }
-
+    agent any
+    
     environment {
         DOCKER_TLS_VERIFY = ''  // Disable TLS verification
         DOCKER_IMAGE = 'test-app'
@@ -24,27 +19,11 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Run the app') {
             steps {
                 // Build the Docker image
-                sh "docker build -t ${DOCKER_IMAGE} -f ${DOCKERFILE_PATH} ."
+                sh "npm start"
             }
-        }
-
-        stage('Run Docker Container') {
-            steps {
-                // Stop and remove any existing container
-                sh "docker rm -f ${DOCKER_IMAGE} || true"
-                // Run the Docker container
-                sh "docker run -d -p 80:80 --name ${DOCKER_IMAGE} ${DOCKER_IMAGE}"
-            }
-        }
-    }
-
-    post {
-        always {
-            // Clean up Docker images and containers if needed
-            sh "docker rmi ${DOCKER_IMAGE} || true"
         }
     }
 }
