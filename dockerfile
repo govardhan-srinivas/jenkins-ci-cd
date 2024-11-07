@@ -29,4 +29,5 @@ COPY --from=build /app/dist/test-app /usr/share/nginx/html
 # Expose port 80
 EXPOSE 80
 
-ENTRYPOINT  ["nginx", "-g", "daemon off;"]
+# Set the entry point for the container
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
