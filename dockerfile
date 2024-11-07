@@ -4,11 +4,14 @@ FROM node:22-alpine as build
 # set the working directory to /app
 WORKDIR /app
 
-# copy the current directory contents into the container at /app
-COPY . .
+# Copy only package.json and package-lock.json first
+COPY package*.json ./
 
-# install dependencies, matching package-lock.json
-RUN npm i
+# Install dependencies
+RUN npm ci
+
+# Now copy the rest of the application code
+COPY . .
 
 # build the app
 RUN npm run build
