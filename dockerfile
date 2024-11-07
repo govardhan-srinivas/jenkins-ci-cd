@@ -1,5 +1,5 @@
 # use a node image as the base image and name it 'build' for
-FROM node:22-alpine as build
+FROM node:22.11-alpine3.19 as build
 
 # set the working directory to /app
 WORKDIR /app
@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm ci
+RUN npm ci --force
 
 # Now copy the rest of the application code
 COPY . .
