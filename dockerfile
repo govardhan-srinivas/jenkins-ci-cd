@@ -29,4 +29,4 @@ COPY --from=build /app/dist/test-app /usr/share/nginx/html
 # Expose port 80
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT  ["nginx", "-g", "daemon off;"]
