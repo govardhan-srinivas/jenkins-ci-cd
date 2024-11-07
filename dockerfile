@@ -5,7 +5,7 @@ WORKDIR /app
 # copy the current directory contents into the container at /app
 COPY . .
 # install dependencies, matching package-lock.json
-RUN npm ci
+RUN npm i
 # build the app
 RUN npm run build
 
